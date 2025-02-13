@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouquet of Pink Flowers</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+            /* Sunset background */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrapper {
+            display: flex;
+            gap: 20px;
+            position: relative;
+            top: -25%;
+            left: 15%;
+        }
+
+        .bouquet {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 23px;
+            justify-items: center;
+            position: relative;
+            left: -25%;
+            margin-top: 60px;
+        }
+
+        .flower {
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+            border-radius: 50%;
+            position: relative;
+
+        }
+
+        .flower::before,
+        .flower::after,
+        .flower .petal1,
+        .flower .petal2 {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+            border-radius: 50%;
+        }
+
+        .flower::before {
+            top: -25px;
+            left: 0;
+            border-top: 5px solid #ff4d4d;
+        }
+
+        .flower::after {
+            top: 0;
+            left: -25px;
+            border-left: 5px solid #ff4d4d;
+        }
+
+        .flower .petal1 {
+            top: 0;
+            left: 25px;
+            border-right: 5px solid #ff4d4d;
+        }
+
+        .flower .petal2 {
+            top: 25px;
+            left: 0;
+            border-bottom: 5px solid #ff4d4d;
+        }
+
+        .flower .center {
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            background-color: #ff4d4d;
+            /* Light reddish color */
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .grass {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="50" viewBox="0 0 100 50"><path d="M0 50 L10 30 L20 50 L30 20 L40 50 L50 10 L60 50 L70 20 L80 50 L90 30 L100 50 Z" fill="green"/></svg>') repeat-x;
+            background-size: contain;
+        }
+
+        .valentine-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3em;
+            color: #ff4d4d;
+            margin-bottom: 20px;
+        }
+
+        .yes-button,
+        .no-button {
+            font-family: 'Quicksand', serif;
+            font-size: 30px;
+            color: white;
+            background-color: #f85353;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            width: fit-content;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .no-button {
+            transition: .5s top, .5s left;
+            position: relative;
+            top: 0px;
+            left: 0px;
+        }
+
+        .button-wrapper {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .yes-button:hover {
+            background-color: #ff6666;
+        }
+
+        .no-button:hover {
+            background-color: #ff6666;
+            transition: .5s top, .5s left;
+        }
+
+        .valentine-wish {
+            display: none;
+        }
+
+        .confetti-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            /* Prevent interaction */
+            overflow: hidden;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100%) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.8;
+            }
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: var(--confetti-color, red);
+            opacity: 0.9;
+            animation: confetti-fall var(--fall-duration, 4s) linear infinite;
+        }
+
+        /* Randomize confetti properties */
+        .confetti-piece:nth-child(1) {
+            left: 10%;
+            --confetti-color: #ff6347;
+            --fall-duration: 3s;
+        }
+
+        .confetti-piece:nth-child(2) {
+            left: 25%;
+            --confetti-color: #ffa500;
+            --fall-duration: 5s;
+        }
+
+        .confetti-piece:nth-child(3) {
+            left: 40%;
+            --confetti-color: #32cd32;
+            --fall-duration: 4.5s;
+        }
+
+        .confetti-piece:nth-child(4) {
+            left: 60%;
+            --confetti-color: #1e90ff;
+            --fall-duration: 3.5s;
+        }
+
+        .confetti-piece:nth-child(5) {
+            left: 80%;
+            --confetti-color: #ff69b4;
+            --fall-duration: 6s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bouquet">
+        <div class="flower">
+            <div class="petal1"></div>
+            <div class="petal2"></div>
+            <div class="center"></div>
+        </div>
+        <div class="flower">
+            <div class="petal1"></div>
+            <div class="petal2"></div>
+            <div class="center"></div>
+        </div>
+        <div class="flower">
+            <div class="petal1"></div>
+            <div class="petal2"></div>
+            <div class="center"></div>
+        </div>
+        <div class="flower">
+            <div class="petal1"></div>
+            <div class="petal2"></div>
+            <div class="center"></div>
+        </div>
+        <div class="flower" style="grid-column-start: 1; grid-column-end: 3; grid-row-start: 2;">
+            <div class="petal1"></div>
+            <div class="petal2"></div>
+            <div class="center"></div>
+        </div>
+        <div class="flower" style="grid-column-start: 2; grid-column-end: 4; grid-row-start: 2;">
+            <div class="petal1"></div>
+            <div class="petal2"></div>
+            <div class="center"></div>
+        </div>
+        <div class="flower" style="grid-column-start: 3; grid-column-end: 5; grid-row-start: 2;">
+            <div class="petal1"></div>
+            <div class="petal2"></div>
+            <div class="center"></div>
+        </div>
+        <div class="flower" style="grid-column-start: 2; grid-column-end: 3; grid-row-start: 3;">
+            <div class="petal1"></div>
+            <div class="petal2"></div>
+            <div class="center"></div>
+        </div>
+        <div class="flower" style="grid-column-start: 3; grid-column-end: 4; grid-row-start: 3;">
+            <div class="petal1"></div>
+            <div class="petal2"></div>
+            <div class="center"></div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="valentine-text">
+            <p>Will you be my valentine?</p>
+            <div class="button-wrapper">
+                <button class="yes-button" id="yes-button">Yes</button>
+                <button class="no-button" id="no-button">No</button>
+            </div>
+        </div>
+    </div>
+    <div class="grass"></div>
+    <div class="confetti-wrapper">
+    </div>
+    <div class="valentine-wish" id="valentine-wish"
+        style="display: none; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; font-size: 5em; color: #ff4d4d; background-color: rgba(253, 196, 196, 0.8); font-family: 'Great Vibes', cursive;">
+        Happy Valentines Day!
+    </div>
+</body>
+
+<script>
+    const noButton = document.getElementById('no-button');
+    // const body = document.querySelector('body');
+    // const bodyRect = body.getBoundingClientRect();
+    // const noBtnRect = noButton.getBoundingClientRect();
+    const height = document.documentElement.clientHeight - 50;
+    const width = document.documentElement.clientWidth - 200;
+
+    console.log(height)
+    console.log(width)
+
+    noButton.addEventListener('mouseover', () => {
+        noButton.style.position = 'fixed'
+        noButton.style.top = '0px'
+        noButton.style.left = '0px'
+        let randY = Math.floor((Math.random() * height) + 1);
+        let randX = Math.floor((Math.random() * width) + 1);
+        console.log(randY)
+        console.log(randX)
+        noButton.style.top = randY + "px";
+        noButton.style.left = randX + "px";
+    });
+
+    const yesButton = document.getElementById('yes-button')
+
+    yesButton.addEventListener('click', () => {
+        const valentineWish = document.getElementById('valentine-wish')
+        valentineWish.style.display = 'flex'
+        const confettiWrapper = document.querySelector('.confetti-wrapper');
+        // Generate confetti
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti-piece');
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.setProperty('--fall-duration', `${Math.random() * 3 + 3}s`);
+            confetti.style.setProperty('--confetti-color', getRandomColor());
+            confettiWrapper.appendChild(confetti);
+        }
+    })
+    function getRandomColor() {
+        const colors = ['#ff6347', '#ffa500', '#32cd32', '#1e90ff', '#ff69b4'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+</script>
+
+</html>
